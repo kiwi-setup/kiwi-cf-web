@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@kiwiD/*": ["./src/kiwiD/*"],
+      "@services/*": ["./src/state-setup/services/*"],
+      "@hooks/*": ["./src/state-setup/hooks/*"],
+    }
+  }
+}

@@ -1,5 +1,5 @@
 .login-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 70px - 50px); /* Adjust for header and footer height */
   display: flex;
   align-items: center;
   justify-content: center;
