@@ -25,4 +25,13 @@
         color: #fff;
         cursor: pointer;
     }
+    &__logout-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+        border: #000;
+        background: #1e1e1e;
+        color: #fff;
+        cursor: pointer;
+    }
 }

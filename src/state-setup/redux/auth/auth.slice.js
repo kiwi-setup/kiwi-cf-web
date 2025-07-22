@@ -1,11 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-export interface AuthState {
-  user: any | null;
-  isUserLoggedIn: boolean;
-}
-
-const initialState: AuthState = {
+const initialState = {
   user: null,
   isUserLoggedIn: false,
 };
@@ -14,7 +9,7 @@ export const AuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUserDetails: (state, {payload: user}) => {
+    setUserDetails: (state, { payload: user }) => {
       console.log('setUserDetails: slice: ', user);
       state.isUserLoggedIn = !!user;
       state.user = user;
@@ -23,6 +18,6 @@ export const AuthSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {setUserDetails} = AuthSlice.actions;
+export const { setUserDetails } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

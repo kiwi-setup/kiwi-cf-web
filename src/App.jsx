@@ -5,9 +5,15 @@ import './App.css';
 import Header from './components/Header/Header.jsx';
 import AppRoutes from './routes/Routes';
 import Footer from './components/Footer/Footer.jsx';
+import { useEffect } from 'react';
+import { useAuthDetails } from '@redux/auth/auth.hook';
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const { getUserStatus } = useAuthDetails();
+  useEffect(() => {
+    // This is where you can initialize any global state or perform side effects
+    getUserStatus();
+  }, []);
 
   return (
     <>

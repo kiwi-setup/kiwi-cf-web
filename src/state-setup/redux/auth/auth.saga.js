@@ -1,17 +1,17 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
-import {getUserStatusApi, postLoginDetailsApi} from './auth.api';
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { getUserStatusApi, postLoginDetailsApi } from './auth.api';
 import {
   GET_USER_STATUS,
   POST_LOGIN_DETAILS,
   POST_USER_LOGOUT,
 } from './auth.action';
-import {storage} from '@util';
-import {setUserDetails} from './auth.slice';
+import LS from '@services/localstorage.service';
+import { setUserDetails } from './auth.slice';
 
 function* getUserStatusSaga() {
   console.log('getUserStatus: from saga');
   try {
-    const {data: response} = yield call(getUserStatusApi);
+    const { data: response } = yield call(getUserStatusApi);
     console.log('GetUserStatus: resp: ', response);
     yield put(setUserDetails(response));
   } catch (e) {
@@ -23,15 +23,16 @@ function* getUserStatusSaga() {
 const samplePayload = {
   username: 'emmaj',
   password: 'emmajpass',
-  expiresInMins: 2,
+  expiresInMins: 1,
 };
-function* postLoginDetailsSaga({payload = samplePayload}) {
+function* postLoginDetailsSaga({ payload = {} }) {
   try {
     console.log('postLoginDetailsSaga: ', payload);
-    const {data: response} = yield call(postLoginDetailsApi, payload);
+    payload = { ...samplePayload, ...payload };
+    const { data: response } = yield call(postLoginDetailsApi, payload);
     yield put(setUserDetails(response));
-    const {accessToken} = response;
-    storage.set('USER_ACCESS_TOKEN', accessToken);
+    const { accessToken } = response;
+    LS.set('USER_ACCESS_TOKEN', accessToken);
     yield call(getUserStatusSaga);
   } catch (e) {
     console.log('Err @postLoginDetailsSaga: ', e);
@@ -42,7 +43,7 @@ function* postLoginDetailsSaga({payload = samplePayload}) {
 function* postLogoutSaga() {
   try {
     console.log('postLogoutSaga: ');
-    storage.delete('USER_ACCESS_TOKEN');
+    LS.delete('USER_ACCESS_TOKEN');
     yield put(setUserDetails(null));
   } catch (e) {
     console.log('Err @postLogoutSaga: ', e);

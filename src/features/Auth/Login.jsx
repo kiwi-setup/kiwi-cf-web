@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
-import { Card, Title, Button, Input } from '../../kiwiD';
+import React, { useEffect, useState } from 'react';
+import { Card, Title, Button, Input } from '@kiwiD';
 import './Login.scss';
+import { useAuthDetails } from '@redux/auth/auth.hook';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({
+    username: 'jamesd',
+    password: 'jamesdpass',
+  });
+  const { isUserLoggedIn, postLoginUser } = useAuthDetails();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isUserLoggedIn) navigate('/home'); // Redirect to dashboard if user is logged in
+  }, [isUserLoggedIn]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,7 +22,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle login logic here
-    alert(`Email: ${form.email}\nPassword: ${form.password}`);
+    alert(`Username: ${form.username}\nPassword: ${form.password}`);
+    postLoginUser(form);
   };
 
   return (
@@ -26,10 +37,10 @@ const Login = () => {
         </Title>
         <form className='login-form' onSubmit={handleSubmit}>
           <Input
-            type='email'
-            name='email'
-            placeholder='Email'
-            value={form.email}
+            type='text'
+            name='username'
+            placeholder='username'
+            value={form.username}
             onChange={handleChange}
             required
           />

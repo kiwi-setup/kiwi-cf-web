@@ -8,7 +8,7 @@ import AuthRoute from './AuthRoute';
 const AppRoutes = () => (
   <Routes>
     <Route path='/login' element={<Login />} />
-    <Route path='/demo' element={<Demo />} />
+    <Route path='/components' element={<Demo />} />
     <Route element={<AuthRoute />}>
       <Route path='/' element={<Home />} />
     </Route>

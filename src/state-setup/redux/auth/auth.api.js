@@ -9,5 +9,5 @@ export const getUserStatusApi = () => {
 
   // return axios.get('https://dummyjson.com/auth/me');
 };
-export const postLoginDetailsApi = data =>
+export const postLoginDetailsApi = (data) =>
   requestService.post('https://dummyjson.com/user/login', data);

@@ -1,14 +1,22 @@
 import React from 'react';
-import './header.scss'; // Import the SCSS file
+import './header.scss';
+import { useAuthDetails } from '@redux/auth/auth.hook';
 
-const Header = ({ isLoggedIn, onProfileClick }) => {
+const Header = () => {
+  const { isUserLoggedIn, user, postLogoutUser } = useAuthDetails();
   return (
     <header className='header'>
       <div className='header__title'>Kiwi Insurance</div>
-      {isLoggedIn && (
-        <button className='header__profile-btn' onClick={onProfileClick}>
-          User
-        </button>
+      {isUserLoggedIn && (
+        <span className='header__profile-btn'>
+          Welcome {user?.firstName}! {` `}
+          <button
+            className='header__logout-btn'
+            onClick={() => postLogoutUser()}
+          >
+            Logout
+          </button>
+        </span>
       )}
     </header>
   );

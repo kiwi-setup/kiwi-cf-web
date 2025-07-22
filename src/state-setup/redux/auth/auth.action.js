@@ -7,8 +7,11 @@ export const POST_USER_LOGOUT = `${prefix}POST_USER_LOGOUT`;
 
 export const getUserStatus = () => {
   console.log('getUserStatus: from action');
-  return {type: GET_USER_STATUS};
+  return { type: GET_USER_STATUS };
 };
 
-export const postLoginUser = payload => ({type: POST_LOGIN_DETAILS, payload});
-export const postLogoutUser = () => ({type: POST_USER_LOGOUT});
+export const postLoginUser = (payload) => ({
+  type: POST_LOGIN_DETAILS,
+  payload,
+});
+export const postLogoutUser = () => ({ type: POST_USER_LOGOUT });
